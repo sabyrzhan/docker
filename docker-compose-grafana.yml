@@ -7,5 +7,24 @@ services:
     - 3000:3000
     volumes:
     - ./grafana_data:/var/lib/grafana
-
-    
+    depends_on:
+      - prometheus
+  prometheus:
+    image: prom/prometheus:main
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prom_data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  prom_node_exporter:
+    image: prom/node-exporter
+    container_name: prom_node_exporter
+    ports:
+    - 9100:9100
+    command:
+    - "--path.rootfs=/host"
+    volumes:
+    - "/:/host:ro"
+    pid: host
+    restart: always

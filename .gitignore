@@ -1,4 +1,5 @@
 grafana_data/
+prom_data/
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/jetbrains,jetbrains+iml,jetbrains+all,visualstudiocode,visualstudio
