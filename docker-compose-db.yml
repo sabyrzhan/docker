@@ -1,0 +1,48 @@
+version: "3.5"
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+    - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+    - mongo:/data/db
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+  postgresql:
+    image: postgres
+    restart: always
+    ports:
+    - 5432:5432
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    - /Users/sabyrzhan/projects/omdb-postgresql:/omdb
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_DB=postgres
+#  oracle:
+#    image: registry.gitlab.com/dbimages/oracle:12.1.0.2-ee
+#    ports:
+#    - 1521:1521
+#    volumes:
+#    - oradata:/opt/oracle/oradata
+#    environment:
+#    - ORACLE_SID=oracle
+#    - ORACLE_PWD=oracle
+volumes:
+#  oradata:
+#    name: oradata
+  pgdata:
+    name: pgdata
+  mongo:
+    name: mongo
