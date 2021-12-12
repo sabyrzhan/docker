@@ -45,7 +45,7 @@ services:
   graphite:
     image: graphiteapp/graphite-statsd
     container_name: graphite
-    restart: unless-restart
+    restart: unless-stopped
     ports:
     - "8081:80"
     - "2003-2004:2003-2004"
@@ -55,7 +55,7 @@ services:
   collectd:
     image: mycollectd
     container_name: collectd
-    restart: unless-restart
+    restart: unless-stopped
     privileged: true
     volumes:
       - "/proc:/rootfs/proc:ro"
