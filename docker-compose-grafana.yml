@@ -60,6 +60,7 @@ services:
     volumes:
       - "/proc:/rootfs/proc:ro"
       - "/sys:/rootfs/sys:ro"
+      - "/:/host:ro"
     depends_on:
       - graphite
 volumes:
