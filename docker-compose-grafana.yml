@@ -42,6 +42,26 @@ services:
      - /dev/kmsg
     expose:
       - 8080
+  graphite:
+    image: graphiteapp/graphite-statsd
+    container_name: graphite
+    restart: unless-restart
+    ports:
+    - "8081:80"
+    - "2003-2004:2003-2004"
+    - "2023-2024:2023-2024"
+    - "8125:8125/udp"
+    - "8126:8126"
+  collectd:
+    image: mycollectd
+    container_name: collectd
+    restart: unless-restart
+    privileged: true
+    volumes:
+      - "/proc:/rootfs/proc:ro"
+      - "/sys:/rootfs/sys:ro"
+    depends_on:
+      - graphite
 volumes:
   grafana_data:
   prom_data:
