@@ -3,6 +3,6 @@ scrape_configs:
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
     static_configs:
-      - targets: ['prom_node_exporter:9100']
+      - targets: ['prom_node_exporter:9100', 'cadvisor:8080']
         labels:
           group: 'node'
