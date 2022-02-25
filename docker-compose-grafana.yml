@@ -52,17 +52,17 @@ services:
     - "2023-2024:2023-2024"
     - "8125:8125/udp"
     - "8126:8126"
-  collectd:
-    image: mycollectd
-    container_name: collectd
-    restart: unless-stopped
-    privileged: true
-    volumes:
-      - "/proc:/rootfs/proc:ro"
-      - "/sys:/rootfs/sys:ro"
-      - "/:/host:ro"
-    depends_on:
-      - graphite
+  # collectd:
+  #   image: mycollectd
+  #   container_name: collectd
+  #   restart: unless-stopped
+  #   privileged: true
+  #   volumes:
+  #     - "/proc:/rootfs/proc:ro"
+  #     - "/sys:/rootfs/sys:ro"
+  #     - "/:/host:ro"
+  #   depends_on:
+  #     - graphite
 volumes:
   grafana_data:
   prom_data:
