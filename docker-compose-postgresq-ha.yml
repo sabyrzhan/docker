@@ -1,0 +1,49 @@
+version: "3"
+services:
+  pg-0:
+    image: bitnami/postgresql-repmgr:latest
+    networks:
+      - ha-network
+    environment:
+      REPMGR_PARTNER_NODES: pg-0,pg-1,pg-2
+      REPMGR_NODE_NAME: pg-0
+      REPMGR_NODE_NETWORK_NAME: pg-0
+      REPMGR_PRIMARY_HOST: pg-0
+      REPMGR_PASSWORD: test
+      POSTGRESQL_PASSWORD: test
+    ports:
+      - "5432:5432"
+  pg-1:
+    image: bitnami/postgresql-repmgr:latest
+    networks:
+      - ha-network
+    depends_on:
+      - pg-0
+    environment:
+      REPMGR_PARTNER_NODES: pg-0,pg-1,pg-2
+      REPMGR_NODE_NAME: pg-1
+      REPMGR_NODE_NETWORK_NAME: pg-1
+      REPMGR_PRIMARY_HOST: pg-0
+      REPMGR_PASSWORD: test
+      POSTGRESQL_PASSWORD: test
+    ports:
+      - "5433:5432"
+  pg-2:
+    image: bitnami/postgresql-repmgr:latest
+    depends_on:
+      - pg-0
+    networks:
+      - ha-network
+    environment:
+      REPMGR_PARTNER_NODES: pg-0,pg-1,pg-2
+      REPMGR_NODE_NAME: pg-2
+      REPMGR_NODE_NETWORK_NAME: pg-2
+      REPMGR_PRIMARY_HOST: pg-0
+      REPMGR_PASSWORD: test
+      POSTGRESQL_PASSWORD: test
+    ports:
+      - "5434:5432"
+
+networks:
+  ha-network:
+    driver: bridge
